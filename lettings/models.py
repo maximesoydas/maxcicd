@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator, MinLengthValidator
 from django.contrib.auth.models import User
 
 
+# Create your models here.
 class Address(models.Model):
     number = models.PositiveIntegerField(validators=[MaxValueValidator(9999)])
     street = models.CharField(max_length=64)
@@ -14,6 +15,9 @@ class Address(models.Model):
     def __str__(self):
         return f'{self.number} {self.street}'
 
+    class Meta:
+        verbose_name_plural = 'Addresses'
+        db_table = 'oc_lettings_site_Address'
 
 class Letting(models.Model):
     title = models.CharField(max_length=256)
@@ -21,11 +25,6 @@ class Letting(models.Model):
 
     def __str__(self):
         return self.title
+    class Meta:
+        db_table = 'oc_lettings_site_Letting'
 
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    favorite_city = models.CharField(max_length=64, blank=True)
-
-    def __str__(self):
-        return self.user.username
