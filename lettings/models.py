@@ -16,8 +16,6 @@ class Address(models.Model):
 
     class Meta:
         verbose_name_plural = 'Addresses'
-        db_table = 'oc_lettings_site_Address'
-
 
 class Letting(models.Model):
     title = models.CharField(max_length=256)
@@ -27,5 +25,3 @@ class Letting(models.Model):
         return self.title
     
     
-    class Meta:
-        db_table = 'oc_lettings_site_Letting'
