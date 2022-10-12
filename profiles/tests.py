@@ -49,12 +49,12 @@ def test_render_profiles_view_data(db, client, profile_1):
 
 # without Profile entry
 def test_render_profile_detail_view_no_data(db, client):
-    user_id = 1
+    username = 'Dawin'
     try:
-        temp_url = urls.reverse('profiles:profile', kwargs={'user': user_id})
+        temp_url = urls.reverse('profiles:profile', kwargs={'username': username})
         client.get(temp_url)
     except Profile.DoesNotExist:
-        assert Profile.objects.filter(user=user_id).first() is None
+        assert Profile.objects.filter(user__username=username).first() is None
 
 
 # with Profile entry
