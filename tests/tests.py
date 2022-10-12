@@ -8,6 +8,7 @@ with the help of fixtures in the conftest
 
 # Test User
 
+
 def test_set_check_password(user_1):
     user_1.set_password("new-password")
     assert user_1.check_password("new-password") is True
@@ -15,7 +16,6 @@ def test_set_check_password(user_1):
 
 def test_check_username(user_1):
     assert user_1.username == 'test-user'
-
 
 
 '''
@@ -26,6 +26,8 @@ with the corresponding URI
 # Test HomePage/Index page
 
 # with Profile entry
+
+
 def test_render_profiles_view_data(db, client):
     temp_url = urls.reverse('index')
     response = client.get(temp_url)

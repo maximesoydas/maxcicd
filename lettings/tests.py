@@ -1,19 +1,13 @@
-from distutils.log import error
-from http.client import INTERNAL_SERVER_ERROR
-from sqlite3 import InternalError
-from xmlrpc.client import INTERNAL_ERROR
 import pytest
 from .models import Letting, Address
-from django.contrib.auth.models import User
 from django import urls
-from django.core.exceptions import ObjectDoesNotExist
-import lettings
 '''
 Test Models,
 with the help of fixtures in the conftest
 '''
 
 # Test Address
+
 
 def test_check_address(address_1):
     assert Address.objects.count() == 1
@@ -66,8 +60,8 @@ def test_render_letting_detail_view_no_data(db, client):
     letting_id = 1
     try:
         temp_url = urls.reverse('lettings:letting', kwargs={'letting_id': letting_id})
-        response = client.get(temp_url)
-    except:
+        client.get(temp_url)
+    except Letting.DoesNotExist:
         assert Letting.objects.filter(id=letting_id).first() is None
 
 # with letting entry
