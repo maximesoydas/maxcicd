@@ -1,1 +1,1 @@
-web gunicorn maxcicd.wsgi:application --log-file -
+web gunicorn oc_lettings_site.wsgi:application --log-file -
