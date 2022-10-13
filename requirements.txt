@@ -1,3 +1,4 @@
+backports.zoneinfo;python_version<"3.9"
 pycurl==7.19.3.1
 asgiref==3.5.2
 attrs==22.1.0
@@ -24,4 +25,3 @@ six==1.16.0
 sqlparse==0.4.3
 tomli==2.0.1
 whitenoise==6.2.0
-backports.zoneinfo==0.2.1;python_version<"3.9"
