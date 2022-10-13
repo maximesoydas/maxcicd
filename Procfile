@@ -1,0 +1,1 @@
+web gunicorn maxcicd.wsgi:application --log-file -
