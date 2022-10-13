@@ -32,11 +32,9 @@ jobs:
       - run:
           name: Build and push to Docker Hub
           command: |
-            IMAGE_TAG=${CIRCLE_TAG/v/''}
-            docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMAGE_TAG
             docker build -t $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest .
             echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER_ID" --password-stdin
-            docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG
+            docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:latest
 
 workflows:
   version: 2
