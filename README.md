@@ -75,3 +75,46 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+# DEPLOYMENT
+
+Here we will see how you can deploy your app on docker hub and heroku via github and circle ci
+we will also add sentry and error management/viewing tool
+
+first you will need to setup github and Circle CI:
+
+### Github 
+
+- before anything you need to set up the repository in your github account (if you don't have one create it)
+- create a github account 
+- git clone the current repo into your computer locally (via zip or http)
+- open the project in vscode and login into github with vscode (or through the terminal)
+- initialize the repository : git init .
+- add repository : git add .
+- commit repository: git commit -m "first commit"
+- push repository: git push
+- head to github.com/your_github/your_project_name(maxcicd)
+- you now have the repository linked to your github account
+### Circle CI:
+
+- head to the circle ci website and connect via your github account
+- then go to projects and press 'set up project' on the right project (maxcicd by default)
+- select the branch master of the project to fetch the .circleci/config.yml
+
+### Docker Hub
+
+- in order to containerize 
+- to link the project to docker hub you will need to add environment_variables
+- go to your project settings in circleci -> and then "Environment Variables" on the left
+- here you will need to add:
+    - DOCKER_HUB_PASSWORD
+    - DOCKER_HUB_USER_ID
+- Now everytime you push a commit you will also push a docker image on docker hub
+- a docker image is a copy of our application's code and requirements which is defined in the dockerfile
+- This will allow you to pull that Docker image from the docker hub registry 
+- And publish our application (docker image) inside a container on any Server or Virtual Machine
+
+### Heroku
+
+- to deploy
