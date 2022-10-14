@@ -48,7 +48,7 @@ notify-sentry-deploy:
   executor:
   # Specify executor for running deploy job
   environment:
-    SENTRY_ORG: ${SENTRY_ORG}
+    SENTRY_ORG: $SENTRY_ORG
     SENTRY_PROJECT: oc_lettings_site
     SENTRY_ENVIRONMENT: production
   steps:
