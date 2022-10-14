@@ -49,7 +49,7 @@ jobs:
             name: Deploy Main to Heroku
             command: |
               IMAGE_TAG="${CIRCLE_SHA1}"
-              sudo curl https://cli-assets.heroku.com/install.sh | sh
+              curl https://cli-assets.heroku.com/install.sh | sh
               heroku container:login
               docker build -t $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG .
               docker run $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG
