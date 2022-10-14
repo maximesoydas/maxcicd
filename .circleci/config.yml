@@ -39,7 +39,7 @@ jobs:
             docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG
   deploy:
     docker:
-      - image: $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG
+      - image: $DOCKER_HUB_USER_ID/$IMAGE_NAME:${CIRCLE_SHA1}
         auth:
           username: $DOCKER_HUB_USER_ID
           password: $DOCKERHUB_PASSWORD
