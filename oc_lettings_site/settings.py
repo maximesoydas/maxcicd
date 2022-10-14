@@ -116,7 +116,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 django_heroku.settings(locals())
 
 sentry_sdk.init(
-    dsn="https://6cf2ee8d208845a3bc5fc8ad36d0b18f@o4503982033338368.ingest.sentry.io/4503982047232000",
+    dsn="https://6cf2ee8d208845a3bc5fc8ad36d0b18f\
+        @o4503982033338368.ingest.sentry.io/4503982047232000",
     integrations=[
         DjangoIntegration(),
     ],
