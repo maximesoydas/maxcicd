@@ -114,6 +114,9 @@ first you will need to setup github and Circle CI:
 - a docker image is a copy of our application's code and requirements which is defined in the dockerfile
 - This will allow you to pull that Docker image from the docker hub registry 
 - And publish our application (docker image) inside a container on any Server or Virtual Machine
+- to test the docker image locally:
+    - docker login
+    - ./docker pull {image_name}
 
 ### Heroku
 
