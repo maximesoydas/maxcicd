@@ -8,7 +8,7 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-RUN chmod +x /script.sh
-ENTRYPOINT ["/script.sh"]
+RUN chmod +x script.sh
+ENTRYPOINT ["script.sh"]
 COPY . .
 CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
