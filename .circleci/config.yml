@@ -44,10 +44,12 @@ jobs:
         - run:
             name: Build and push Docker image to Heroku
             command: |
+              IMAGE_TAG="${CIRCLE_SHA1}"
               sudo curl https://cli-assets.heroku.com/install.sh | sh
               HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-              docker pull $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG .
-              docker run $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG .
+              docker build -t registry.heroku.com/$IMAGE_NAME:$IMAGE_TAG/web .
+              docker push registry.heroku.com/$IMAGE_NAME:$IMAGE_TAG/web
+              heroku container:release -a $IMAGE_NAME:$IMAGE_TAG web
 
 
 
