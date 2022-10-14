@@ -44,6 +44,25 @@ jobs:
         - checkout
         - heroku/install
         - heroku/deploy-via-git
+notify-sentry-deploy:
+  executor:
+  # Specify executor for running deploy job
+  environment:
+    SENTRY_ORG: ${SENTRY_ORG}
+    SENTRY_PROJECT: oc_lettings_site
+    SENTRY_ENVIRONMENT: production
+  steps:
+    - checkout
+    - run:
+        name: Create release and notify Sentry of deploy
+        command: |
+          curl -sL https://sentry.io/get-cli/ | bash
+          export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+          sentry-cli releases set-commits $SENTRY_RELEASE --auto
+          sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
+          sentry-cli releases finalize $SENTRY_RELEASE
+          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
 workflows:
   build-master:
     jobs:
@@ -61,6 +80,10 @@ workflows:
           requires:
             - build
             - containerize
-      
-
+      - notify-sentry-deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - deploy
 
