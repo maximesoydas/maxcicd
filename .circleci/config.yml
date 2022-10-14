@@ -38,23 +38,16 @@ jobs:
             echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USER_ID" --password-stdin
             docker push $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG
   deploy:
-    docker:
-      - image: $DOCKER_HUB_USER_ID/$IMAGE_NAME:${CIRCLE_SHA1}
-        auth:
-          username: $DOCKER_HUB_USER_ID
-          password: $DOCKERHUB_PASSWORD
-    steps:
+      machine: true
+      steps:
         - checkout
         - run:
-            name: Deploy Main to Heroku
+            name: Build and push Docker image to Heroku
             command: |
-              curl https://cli-assets.heroku.com/install.sh | sh
-              heroku container:login
-              curl -fsSL https://get.docker.com -o get-docker.sh | sh
-              apt install docker
-              docker build -t registry.heroku.com/${HEROKU_APP_NAME}/web .
-              docker push registry.heroku.com/${HEROKU_APP_NAME}/web
-              heroku container:release -a ${HEROKU_APP_NAME} web
+              sudo curl https://cli-assets.heroku.com/install.sh | sh
+              HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
+              HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a ${HEROKU_APP_NAME} web
+              HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a ${HEROKU_APP_NAME} web
 
 
   # git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git
