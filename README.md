@@ -79,15 +79,14 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 # DEPLOYMENT
 
-Here we will see how you can deploy your app on docker hub and heroku via github and circle ci
-we will also add sentry and error management/viewing tool
+Here we will see how you can deploy your app on DockerHub and Heroku via GitHub and CircleCI
+we will also add Sentry, an 'error viewing' tool.
 
-first you will need to setup github and Circle CI:
-
+Step by step:
 ### Github 
 
-- before anything you need to set up the repository in your github account (if you don't have one create it)
-- create a github account 
+- before anything you need to set up the repository in your github account
+- create a github account or login
 - git clone the current repo into your computer locally (via zip or http)
 - open the project in vscode and login into github with vscode (or through the terminal)
 - initialize the repository : git init .
@@ -104,20 +103,49 @@ first you will need to setup github and Circle CI:
 
 ### Docker Hub
 
-- in order to containerize 
+We will use DockerHub to register our image (application)
 - to link the project to docker hub you will need to add environment_variables
-- go to your project settings in circleci -> and then "Environment Variables" on the left
-- here you will need to add:
+- go to your project settings in CircleCI -> "Environment Variables"
+- here you will need to add your:
     - DOCKER_HUB_PASSWORD
     - DOCKER_HUB_USER_ID
-- Now everytime you push a commit you will also push a docker image on docker hub
+- Now everytime you push a commit you will also push a docker image of your application on docker hub
 - a docker image is a copy of our application's code and requirements which is defined in the dockerfile
-- This will allow you to pull that Docker image from the docker hub registry 
-- And publish our application (docker image) inside a container on any Server or Virtual Machine
+- This will allow you to further pull that Docker image from the docker hub registry 
+- And publish our application (docker image) inside a docker container on any Server or Virtual Machine
+- a docker container only runs your application on a machine's operating system.
+  It defers from a virtual machine as it is much lighter.
+  Only the strict minimum to run your application is installed.
+  While a virtual machine will simulate a whole machine's hardware. 
 - to test the docker image locally:
-    - docker login
-    - ./docker pull {image_name}
+    pre-existing docker image:
+      - docker login
+      - docker pull {image_name}
+      - docker run {image_name}
+    new docker image:
+      - cd project_directory
+      - docker login
+      - docker build --tag {app_name} .
+      - docker run {app_name}
+
 
 ### Heroku
 
-- to deploy
+- first create an account on heroku
+- then you will need to generate a [Heroku API Key](https://dashboard.heroku.com/account)
+- next create an app ( for example: orange-lettings-maxcicd )
+- to deploy on Heroku you will need to add new environment_variables in CircleCI:
+    - HEROKU_API_KEY
+    - HEROKU_APP_NAME
+
+
+
+You are all set !
+
+Now Whenever you commit and push your code on the master/main branch
+You will launch Github -> CircleCI -> pip install -> pytest -> flake8 
+                                   -> Build and push Docker Image to Docker Hub Registry 
+                                   -> Copy docker image from Docker Hub to Heroku registry
+                                   -> Deploy image/application to Heroku
+
+You can also re-run a pipeline workflow in CircleCI.
