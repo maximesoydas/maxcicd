@@ -41,8 +41,8 @@ jobs:
     docker:
       - image: $DOCKER_HUB_USER_ID/$IMAGE_NAME:$IMAGE_TAG
         auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          username: $DOCKER_HUB_USER_ID
+          password: $DOCKERHUB_PASSWORD
     steps:
         - checkout
         - run:
